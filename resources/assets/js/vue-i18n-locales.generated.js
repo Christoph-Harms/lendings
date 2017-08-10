@@ -4,6 +4,15 @@ export default {
             "failed": "Diese Zugangsdaten wurden nicht in unserer Datenbank gefunden.",
             "throttle": "Zu viele Loginversuche. Versuchen Sie es bitte in {seconds} Sekunden nochmal."
         },
+        "generic": {
+            "close": "Schließen"
+        },
+        "items": {
+            "popover": {
+                "fetch_failed_title": "Da ist wohl was schief gelaufen...",
+                "fetch_failed_content": "Leider gab es einen Fehler beim Abrufen der Artikel."
+            }
+        },
         "pagination": {
             "previous": "&laquo; Zurück",
             "next": "Weiter &raquo;"
@@ -110,6 +119,15 @@ export default {
         "auth": {
             "failed": "These credentials do not match our records.",
             "throttle": "Too many login attempts. Please try again in {seconds} seconds."
+        },
+        "generic": {
+            "close": "Close"
+        },
+        "items": {
+            "popover": {
+                "fetch_failed_title": "Seems like something went wrong...",
+                "fetch_failed_content": "Unfortunately, there was a problem when fetching the items."
+            }
         },
         "pagination": {
             "previous": "&laquo; Previous",

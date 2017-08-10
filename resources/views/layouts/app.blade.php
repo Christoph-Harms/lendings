@@ -81,7 +81,11 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
-        window.isAdmin = "{!! json_encode(Auth::user()->admin) !!}";
+        @if (Auth::check())
+            window.isAdmin = "{!! json_encode(Auth::user()->admin) !!}";
+        @else
+            window.isAdmin = false;
+        @endif
     </script>
 </body>
 </html>
