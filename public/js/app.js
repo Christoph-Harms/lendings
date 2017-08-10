@@ -43713,12 +43713,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -43822,13 +43816,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-remove"
     })])])])])])
-  }), _vm._v(" "), _c('span', {
-    attrs: {
-      "id": "fetch-failed",
-      "data-toggle": "popover",
-      "data-title": _vm.$t('items.popover.fetching_failed_title'),
-      "data-content": _vm.$t('items.popover.fetching_failed_content')
-    }
   }), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
     attrs: {

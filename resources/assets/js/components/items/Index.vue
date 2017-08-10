@@ -28,12 +28,6 @@
                 </div>
             </div>
         </div>
-        <span
-                id="fetch-failed"
-                data-toggle="popover"
-                :data-title="$t('items.popover.fetching_failed_title')"
-                :data-content="$t('items.popover.fetching_failed_content')"
-        />
 
         <!-- failModal -->
         <div class="modal fade" id="failModal" tabindex="-1" role="dialog" aria-labelledby="errorMessage">
