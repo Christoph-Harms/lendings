@@ -15,9 +15,14 @@ class ItemsController extends Controller
      */
     public function index()
     {
+        return view('items.index');
+    }
+
+    public function apiIndex()
+    {
         $items = Item::all();
 
-        return view('items.index', compact('items'));
+        return response()->json($items);
     }
 
     /**

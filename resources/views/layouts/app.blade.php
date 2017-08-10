@@ -39,6 +39,7 @@
                         &nbsp;
                         @if (Auth::check())
                             <li><a href="{{ route('lendings.index') }}">My Lendings</a> </li>
+                            <li><a href="{{ route('items.index') }}">Items</a> </li>
                         @endif
                     </ul>
 
@@ -79,6 +80,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    @yield('userscript')
+    <script>
+        window.isAdmin = "{!! json_encode(Auth::user()->admin) !!}";
+    </script>
 </body>
 </html>

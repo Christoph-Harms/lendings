@@ -15,6 +15,6 @@ class Item extends Model
     protected $guarded = [];
 
     protected $visible = [
-        'name',
+        'id', 'name',
     ];
 }
