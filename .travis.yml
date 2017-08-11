@@ -4,12 +4,16 @@ php:
   - '7.1'
 services: docker
 
+cache:
+  directories:
+  - vendor
+
 before_install:
   - docker-compose up -d
   - docker-compose ps
   - composer install
   - cp .env.testing .env
-  - docker-compose exec app php artisan key:generate
+  - php artisan key:generate
 
 script:
   - docker-compose exec app vendor/bin/phpunit
