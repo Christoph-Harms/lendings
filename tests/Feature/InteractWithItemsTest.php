@@ -33,10 +33,10 @@ class InteractWithItemsTest extends TestCase
     {
         $item = factory(Item::class)->create();
         $admin = factory(User::class)->states('admin')->create();
-        $this->actingAs($admin);
-        $response = $this->delete(route('items.destroy', ['id' => $item->id]));
+        Passport::actingAs($admin);
+        $response = $this->json('DELETE', route('items.destroy', ['id' => $item->id]));
         //dd($response);
-        $response->assertRedirect();
+        $response->assertStatus(204);
 
         $this->assertDatabaseMissing('items', $item->toArray());
 
@@ -47,8 +47,8 @@ class InteractWithItemsTest extends TestCase
     {
         $item = factory(Item::class)->create();
         $user = factory(User::class)->create();
-        $this->actingAs($user);
-        $response = $this->delete(route('items.destroy', ['id' => $item->id]));
+        Passport::actingAs($user);
+        $response = $this->json('DELETE', route('items.destroy', ['id' => $item->id]));
         //dd($response);
         $response->assertStatus(403);
 

@@ -93,7 +93,7 @@ class ItemsController extends Controller
         $deleted = Item::destroy($itemId);
 
         if ($deleted) {
-            return back();
+            return response('', 204);
         }
 
         return response('', 500);

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Database\Eloquent\Collection;
+use Laravel\Passport\Passport;
 use Lendings\Item;
 use Lendings\Lending;
 use Lendings\User;
@@ -16,19 +17,23 @@ class LendItemsTest extends TestCase
     /** @test */
     public function a_user_can_lend_items()
     {
-        // Given we have a logged-in user and an item
         $user = factory(User::class)->create();
-        $this->actingAs($user);
+        Passport::actingAs($user);
         $item = factory(Item::class)->create();
 
-        // And that user posts to /lendings with an item ID
         $response = $this->json(
             'POST',
             route('lendings.store'), [
             'item_id' => $item->id,
         ]);
 
-        $response->assertRedirect();
+        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
+        $expected = Lending::where('user_id', $user->id)
+            ->where('item_id', $item->id)
+            ->first()->toArray();
+
+        $response->assertStatus(200);
+        $response->assertJson($expected);
 
         // A new lending is made that associates that item with a user
         $this->assertDatabaseHas(
@@ -52,16 +57,19 @@ class LendItemsTest extends TestCase
         ]);
 
         $response->assertStatus(401);
+
+        $this->assertDatabaseMissing(
+            'lendings', [
+            'item_id' => $item->id,
+        ]);
     }
 
     /** @test */
     public function a_user_can_see_his_lendings_only()
     {
-        $this->disableExceptionHandling();
-
         // Given we have a user
         $user = factory(User::class)->create();
-        $this->actingAs($user);
+        Passport::actingAs($user);
 
         // who has lendings associatet with them
         /** @var Collection $usersLendings */
@@ -92,7 +100,7 @@ class LendItemsTest extends TestCase
         // Given we have a user and an item
         $user = factory(User::class)->create();
         $item = factory(Item::class)->create();
-        $this->actingAs($user);
+        Passport::actingAs($user);
 
         // If the user lends an item
         $this->json(
@@ -112,9 +120,6 @@ class LendItemsTest extends TestCase
             ]
         );
 
-        //dd($response);
-
-        $response->assertRedirect();
-        $response->assertSessionHasErrors('item');
+        $response->assertStatus(423);
     }
 }

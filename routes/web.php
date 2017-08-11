@@ -22,14 +22,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::prefix('lendings')->middleware(['auth'])->group(function(){
-    Route::get('/', 'LendingsController@index')->name('lendings.index');
-    Route::post('/', 'LendingsController@store')->name('lendings.store');
-});
-
 Route::prefix('items')->middleware(['auth'])->group(function(){
     Route::get('/', 'ItemsController@index')->name('items.index');
-    Route::delete('/{id}', 'ItemsController@destroy')->name('items.destroy');
 });
 
 

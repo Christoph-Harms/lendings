@@ -54,13 +54,12 @@ class LendingsController extends Controller
         $item = Item::find(request('item_id'));
 
         if (!$item->available) {
-            return back()->withErrors([
-                'item' =>'This item is not available at the moment.'
-            ]);
+            return response()->json('This item is not available.')
+                ->setStatusCode(423);
         }
 
         /** @noinspection PhpDynamicAsStaticMethodCallInspection */
-        Lending::create([
+        $lending = Lending::create([
             'user_id' => auth()->user()->id,
             'item_id' => request('item_id'),
         ]);
@@ -70,7 +69,8 @@ class LendingsController extends Controller
             'available' => false,
         ]);
 
-        return back();
+        return response()->json($lending)
+            ->setStatusCode(200);
     }
 
     /**
