@@ -11,4 +11,5 @@ before_install:
 
 script:
   - docker run --rm -v $(pwd):/app composer/composer install
+  - docker-compose exec app php artisan key:generate
   - docker-compose exec app vendor/bin/phpunit
