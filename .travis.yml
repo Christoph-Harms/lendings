@@ -17,7 +17,7 @@ install:
   - composer install
   - cp .env.testing .env
   - php artisan key:generate
-  - php artisan passport:install
+  - docker-compose exec app php artisan passport:install
 
 script:
   - docker-compose exec app vendor/bin/phpunit
