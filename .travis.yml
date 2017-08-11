@@ -3,13 +3,11 @@ language: php
 services: docker
 
 before_install:
-  - pwd
-  - ls -llh
-  - docker-compose --version
   - docker-compose up -d
   - docker-compose ps
+  - composer install
+  - cp .env.testing .env
+  - docker-compose exec app php artisan key:generate
 
 script:
-  - docker run --rm -v $(pwd):/app composer/composer install
-  - docker-compose exec app php artisan key:generate
   - docker-compose exec app vendor/bin/phpunit
