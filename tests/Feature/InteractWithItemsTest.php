@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Session;
+use Laravel\Passport\Passport;
 use Lendings\Item;
 use Lendings\User;
 use Tests\TestCase;
@@ -18,16 +19,13 @@ class InteractWithItemsTest extends TestCase
         $user = factory(User::class)->create();
         $items = factory(Item::class, 3)->create();
 
-        $this->actingAs($user);
+        Passport::actingAs($user);
 
-        $response = $this->get(route('items.index'));
+        $response = $this->json('GET', route('items.api_index'));
 
+        //dd($response);
         $response->assertStatus(200);
-        $response->assertViewIs('items.index');
-
-        $items->each(function ($item) use ($response) {
-            $response->assertSee($item->name);
-        });
+        $response->assertJson($items->toArray());
     }
 
     /** @test */

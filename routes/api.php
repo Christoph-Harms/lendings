@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('items')->middleware(['auth:api'])->group(function(){
-    Route::get('/', 'ItemsController@apiIndex')->name('items.index');
+    Route::get('/', 'ItemsController@apiIndex')->name('items.api_index');
     Route::delete('/{id}', 'ItemsController@destroy')->name('items.destroy');
 });
