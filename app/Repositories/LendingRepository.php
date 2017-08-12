@@ -9,7 +9,23 @@
 namespace Lendings\Repositories;
 
 
+use Lendings\Item;
+use Lendings\Lending;
+use Lendings\User;
+
 class LendingRepository
 {
-
+    public function lendOne(Item $item, User $user): Lending
+    {
+        if ($item->available) {
+            $item->qty_available -= 1;
+            $item->save();
+            /** @noinspection PhpDynamicAsStaticMethodCallInspection */
+            return Lending::create([
+                'item_id' => $item->id,
+                'user_id' => $user->id,
+            ]);
+        }
+        return null;
+    }
 }

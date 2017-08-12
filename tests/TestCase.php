@@ -9,6 +9,15 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    /**
+     * {@inheritDoc}
+     */
+    public function __construct($name = null, array $data = [], $dataName = '')
+    {
+        echo getenv('APP_ENVIRONMENT');
+        parent::__construct($name, $data, $dataName);
+    }
+
     protected function disableExceptionHandling()
     {
         app()->instance(Handler::class, new class extends Handler {

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Lendings\Item;
 use Lendings\Lending;
 use Illuminate\Http\Request;
+use Lendings\Repositories\LendingRepository;
 
 class LendingsController extends Controller
 {
@@ -40,10 +41,12 @@ class LendingsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     * @param LendingRepository         $lendingRepo
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, LendingRepository $lendingRepo)
     {
         $this->validate($request, [
             'item_id' => 'required|exists:items,id'
@@ -58,16 +61,7 @@ class LendingsController extends Controller
                 ->setStatusCode(423);
         }
 
-        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
-        $lending = Lending::create([
-            'user_id' => auth()->user()->id,
-            'item_id' => request('item_id'),
-        ]);
-
-        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
-        Item::find(request('item_id'))->update([
-            'available' => false,
-        ]);
+        $lending = $lendingRepo->lendOne($item, auth()->user());
 
         return response()->json($lending)
             ->setStatusCode(200);

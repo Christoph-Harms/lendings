@@ -32,6 +32,8 @@ $factory->state(\Lendings\User::class, 'admin', function (\Faker\Generator $fake
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(Lendings\Item::class, function (Faker\Generator $faker) {
     return [
+        'quantity' => 1,
+        'qty_available' => 1,
         'name' => $faker->firstName,
     ];
 });
