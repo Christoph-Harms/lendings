@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<dashboard></dashboard>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-2">
+            <dashboard></dashboard>
+        </div>
+    </div>
 @endsection
