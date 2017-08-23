@@ -20,6 +20,15 @@ class Item extends Model
     protected $visible = [
         'id',
         'name',
+        'quantity',
+        'qty_available',
+        'img_url',
+        'description',
+        'available'
+    ];
+
+    protected $appends = [
+        'available'
     ];
 
     public function getAvailableAttribute()

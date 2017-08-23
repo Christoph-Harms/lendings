@@ -18,7 +18,11 @@ class TestingDataSeeder extends Seeder
                 'password' => bcrypt('secret'),
             ]);
 
-        $items = factory(\Lendings\Item::class, 50)->create();
+        /** @var \Illuminate\Support\Collection $items */
+        $items = factory(\Lendings\Item::class, 25)->create()->merge(
+            factory(\Lendings\Item::class, 25)->states('unavailable')->create()
+        );
+
 
         $items->shuffle()->take(10)->each(function ($item) use ($user) {
             factory(\Lendings\Lending::class)->create([

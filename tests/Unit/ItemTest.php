@@ -34,15 +34,19 @@ class ItemTest extends TestCase
             'quantity' => 3,
             'qty_available' => 3,
         ]);
-
-        $this->item = $this->item->fresh();
     }
 
     /** @test */
     public function its_available_quantity_decreases_when_an_item_is_lent()
     {
         $this->lendingRepo->lendOne($this->item, factory(User::class)->create());
-        $freshItem = $this->item->fresh();
-        $this->assertEquals(2, $freshItem->qty_available);
+        $this->assertEquals(2, $this->item->qty_available);
+    }
+
+    /** @test */
+    public function it_has_the_properties_it_needs()
+    {
+        $this->assertNotNull(filter_var($this->item->img_url, FILTER_VALIDATE_URL));
+        $this->assertNotNull($this->item->description);
     }
 }

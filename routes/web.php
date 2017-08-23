@@ -26,4 +26,7 @@ Route::prefix('items')->middleware(['auth'])->group(function(){
     Route::get('/', 'ItemsController@index')->name('items.index');
 });
 
+Route::prefix('lendings')->middleware(['auth'])->group(function(){
+    Route::get('/', 'LendingsController@index')->name('lendings.index');
+});
 

@@ -18,6 +18,8 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->integer('quantity')->default(0);
             $table->integer('qty_available')->default(0);
+            $table->string('img_url')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

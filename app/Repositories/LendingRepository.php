@@ -9,13 +9,13 @@
 namespace Lendings\Repositories;
 
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Lendings\Item;
 use Lendings\Lending;
-use Lendings\User;
 
 class LendingRepository
 {
-    public function lendOne(Item $item, User $user): Lending
+    public function lendOne(Item $item, Authenticatable $user): Lending
     {
         if ($item->available) {
             $item->qty_available -= 1;

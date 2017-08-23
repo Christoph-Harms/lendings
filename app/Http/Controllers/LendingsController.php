@@ -13,29 +13,23 @@ class LendingsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $req
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         /** @var Collection $lendings */
         $lendings = auth()->user()->lendings;
         $lendings->load('item');
 
-
+        if ($req->wantsJson()) {
+            return response()->json($lendings);
+        }
 
         return view('lendings.index', [
             'lendings' => $lendings
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**

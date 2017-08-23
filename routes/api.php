@@ -17,12 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('lendings')->middleware(['auth'])->group(function(){
-    Route::get('/', 'LendingsController@index')->name('lendings.index');
+Route::prefix('lendings')->middleware(['auth:api'])->group(function(){
+    Route::get('/', 'LendingsController@index')->name('lendings.api_index');
     Route::post('/', 'LendingsController@store')->name('lendings.store');
 });
 
 Route::prefix('items')->middleware(['auth:api'])->group(function(){
-    Route::get('/', 'ItemsController@apiIndex')->name('items.api_index');
+    Route::get('/', 'ItemsController@index')->name('items.api_index');
+    Route::post('/', 'ItemsController@store')->name('items.create');
     Route::delete('/{id}', 'ItemsController@destroy')->name('items.destroy');
 });

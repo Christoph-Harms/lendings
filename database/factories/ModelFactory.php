@@ -35,6 +35,19 @@ $factory->define(Lendings\Item::class, function (Faker\Generator $faker) {
         'quantity' => 1,
         'qty_available' => 1,
         'name' => $faker->firstName,
+        'img_url' => $faker->imageUrl(640, 480, 'technics'),
+        'description' => $faker->text(),
+    ];
+});
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->state(Lendings\Item::class, 'unavailable', function (Faker\Generator $faker) {
+    return [
+        'quantity' => 1,
+        'qty_available' => 0,
+        'name' => $faker->firstName,
+        'img_url' => $faker->imageUrl(640, 480, 'technics'),
+        'description' => $faker->text(),
     ];
 });
 
