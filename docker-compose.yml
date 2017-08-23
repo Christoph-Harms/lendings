@@ -10,8 +10,9 @@ services:
     volumes:
       - ./:/var/www
     environment:
-      - "DB_PORT=3306"
-      - "DB_HOST=database"
+      XDEBUG_CONFIG: remote_host=192.168.3.58
+      DB_PORT: 3306
+      DB_HOST: database
 
   # The Web Server
   web:
