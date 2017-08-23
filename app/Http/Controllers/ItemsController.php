@@ -13,13 +13,17 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::all();
+        if ($request->wantsJson()){
+            $items = Item::all();
 
-        return view('items.index', compact('items'));
+            return response()->json($items);
+        }
+
+        return view('items.index');
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +31,6 @@ class ItemsController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -38,7 +41,8 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Item::class);
+        return Item::create($request->intersect(['name', 'quantity', 'qty_available'])); 
     }
 
     /**
@@ -88,7 +92,7 @@ class ItemsController extends Controller
         $deleted = Item::destroy($itemId);
 
         if ($deleted) {
-            return back();
+            return response('', 204);
         }
 
         return response('', 500);

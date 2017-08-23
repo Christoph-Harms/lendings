@@ -6,21 +6,26 @@ use Illuminate\Database\Eloquent\Collection;
 use Lendings\Item;
 use Lendings\Lending;
 use Illuminate\Http\Request;
+use Lendings\Repositories\LendingRepository;
 
 class LendingsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $req
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         /** @var Collection $lendings */
         $lendings = auth()->user()->lendings;
         $lendings->load('item');
 
-
+        if ($req->wantsJson()) {
+            return response()->json($lendings);
+        }
 
         return view('lendings.index', [
             'lendings' => $lendings
@@ -28,22 +33,14 @@ class LendingsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     * @param LendingRepository         $lendingRepo
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, LendingRepository $lendingRepo)
     {
         $this->validate($request, [
             'item_id' => 'required|exists:items,id'
@@ -54,23 +51,14 @@ class LendingsController extends Controller
         $item = Item::find(request('item_id'));
 
         if (!$item->available) {
-            return back()->withErrors([
-                'item' =>'This item is not available at the moment.'
-            ]);
+            return response()->json('This item is not available.')
+                ->setStatusCode(423);
         }
 
-        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
-        Lending::create([
-            'user_id' => auth()->user()->id,
-            'item_id' => request('item_id'),
-        ]);
+        $lending = $lendingRepo->lendOne($item, auth()->user());
 
-        /** @noinspection PhpDynamicAsStaticMethodCallInspection */
-        Item::find(request('item_id'))->update([
-            'available' => false,
-        ]);
-
-        return back();
+        return response()->json($lending)
+            ->setStatusCode(200);
     }
 
     /**

@@ -7,7 +7,18 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue';
+import VueI18n from 'vue-i18n';
+import Locales from './vue-i18n-locales.generated';
+
+
+Vue.use(VueI18n);
+
+const i18n = new VueI18n({
+    locale: 'de',
+    messages: Locales,
+});
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,7 +27,20 @@ window.Vue = require('vue');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('items-index', require('./components/items/Index.vue'));
+
+Vue.directive('tooltip', {
+    bind: function(el, binding){
+        $(el).tooltip({
+            title: binding.value,
+            placement: binding.arg,
+            trigger: 'hover',
+            container: 'body',
+        })
+    }
+});
 
 const app = new Vue({
+    i18n,
     el: '#app'
 });

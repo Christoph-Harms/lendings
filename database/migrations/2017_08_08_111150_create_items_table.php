@@ -16,7 +16,10 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->boolean('available')->default(true);
+            $table->integer('quantity')->default(0);
+            $table->integer('qty_available')->default(0);
+            $table->string('img_url')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
