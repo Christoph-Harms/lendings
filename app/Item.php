@@ -31,6 +31,12 @@ class Item extends Model
         'available'
     ];
 
+    protected $casts = [
+        'id' => 'integer',
+        'quantity' => 'integer',
+        'qty_available' => 'integer',
+    ];
+
     public function getAvailableAttribute()
     {
         return $this->qty_available > 0;

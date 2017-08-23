@@ -42,7 +42,7 @@ class ItemsController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', Item::class);
-        return Item::create($request->intersect(['name', 'quantity', 'qty_available'])); 
+        return Item::create($request->intersect(['name', 'quantity', 'qty_available', 'description', 'img_url']));
     }
 
     /**

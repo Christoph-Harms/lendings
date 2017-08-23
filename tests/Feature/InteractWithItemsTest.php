@@ -61,7 +61,7 @@ class InteractWithItemsTest extends TestCase
         //dd($response);
         $response->assertStatus(403);
 
-        $this->assertDatabaseHas('items', $item->toArray());
+        $this->assertDatabaseHas('items', ['id' => $item->id, 'name' => $item->name, 'description' => $item->description]);
     }
 
     /** @test */
@@ -75,7 +75,7 @@ class InteractWithItemsTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson($item->toArray());
-        $this->assertDatabaseHas('items', $item->toArray());
+        $this->assertDatabaseHas('items', ['description' => $item->description, 'name' => $item->name]);
     }
 
     /** @test */
