@@ -28,6 +28,7 @@ const i18n = new VueI18n({
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('items-index', require('./components/items/Index.vue'));
+Vue.component('dashboard', require('./components/dashboard/Dashboard.vue'));
 
 Vue.directive('tooltip', {
     bind: function(el, binding){
