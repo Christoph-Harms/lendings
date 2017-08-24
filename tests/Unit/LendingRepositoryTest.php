@@ -42,4 +42,18 @@ class LendingRepositoryTest extends TestCase
 
         $this->assertDatabaseHas('lendings', $lending->toArray());
     }
+
+    /** @test */
+    public function it_can_get_the_lendings_for_a_user()
+    {
+        $user = factory(User::class)->create();
+
+        $lendings = factory(Lending::class, 3)->create(['user_id' => $user->id])->toArray();
+
+        $fetchedLendings = $this->lendingRepo->forUser($user);
+
+        $fetchedLendings->each(function ($fetchedLending) use ($lendings) {
+            $this->assertContains($fetchedLending->toArray(), $lendings);
+        });
+    }
 }
