@@ -65,7 +65,7 @@ class LendItemsTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_see_his_lendings_only()
+    public function a_user_can_fetch_his_lendings_only()
     {
         // Given we have a user
         $user = factory(User::class)->create();
@@ -74,24 +74,15 @@ class LendItemsTest extends TestCase
         // who has lendings associatet with them
         /** @var Collection $usersLendings */
         $usersLendings = factory(Lending::class, 3)->create(['user_id' => $user->id]);
-        $usersLendings->load('item');
 
         // And there are other lendings that are NOT associated with this user
         $otherLendings = factory(Lending::class, 3)->create();
-        $otherLendings->load('item');
 
         // The user can see his (and only his) lendings
-        $response = $this->get(route('lendings.index'));
+        $response = $this->getJson(route('lendings.api_index'));
 
-        $usersLendings->each(
-            function ($lending) use ($response) {
-                $response->assertSee($lending->item->name);
-            });
-
-        $otherLendings->each(
-            function ($lending) use ($response) {
-                $response->assertDontSee($lending->item->name);
-            });
+        $response->assertJson($usersLendings->toArray());
+        $response->assertJsonMissing($otherLendings->toArray());
     }
 
     /** @test */

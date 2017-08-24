@@ -3,6 +3,7 @@
 namespace Lendings\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Lendings\Item;
 use Lendings\Lending;
 use Illuminate\Http\Request;
@@ -13,15 +14,16 @@ class LendingsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $req
+     * @param Request           $req
+     *
+     * @param LendingRepository $lendingRepo
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $req)
+    public function index(Request $req, LendingRepository $lendingRepo)
     {
         /** @var Collection $lendings */
-        $lendings = auth()->user()->lendings;
-        $lendings->load('item');
+        $lendings = $lendingRepo->forUser(Auth::user());
 
         if ($req->wantsJson()) {
             return response()->json($lendings);
