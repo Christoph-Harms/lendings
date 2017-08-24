@@ -1,5 +1,5 @@
 <!--suppress JSUnusedGlobalSymbols -->
-<template xmlns:v-tooltip="http://www.w3.org/1999/xhtml">
+<template>
     <div class="row">
         <div v-show="loading" class="spinner center-block"></div>
         <div v-for="item in items" class="col-md-8 col-md-offset-2">

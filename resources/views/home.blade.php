@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
-        <div class="col-md-6 col-md-offset-2">
-            <dashboard></dashboard>
-        </div>
-    </div>
+
+    <dashboard :user='{!! json_encode(Auth::user()) !!}'></dashboard>
+
 @endsection

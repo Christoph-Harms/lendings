@@ -82,7 +82,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         @if (Auth::check())
-            window.isAdmin = "{!! json_encode(Auth::user()->admin) !!}";
+            window.isAdmin = '{!! json_encode(Auth::user()->admin) !!}';
         @else
             window.isAdmin = false;
         @endif
