@@ -32,5 +32,7 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
+      - run: php artisan key:generate
+
       # run tests!
       - run: vendor/bin/phpunit
