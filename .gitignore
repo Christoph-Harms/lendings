@@ -12,4 +12,6 @@ yarn-error.log
 .env
 public
 notes.md
+design/scss/.sass-cache
 lendings.iml
+
