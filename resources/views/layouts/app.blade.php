@@ -38,7 +38,7 @@
                     <ul class="nav navbar-nav">
                         &nbsp;
                         @if (Auth::check())
-                            <li><a href="{{ route('lendings.index') }}">My Lendings</a> </li>
+                            <li><a href="{{ route('dashboard') }}">Dashboard</a> </li>
                             <li><a href="{{ route('items.index') }}">Items</a> </li>
                         @endif
                     </ul>
@@ -51,7 +51,7 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     {{ Auth::user()->name }} @if(Auth::user()->admin) (admin) @endif <span class="caret"></span>
                                 </a>
 

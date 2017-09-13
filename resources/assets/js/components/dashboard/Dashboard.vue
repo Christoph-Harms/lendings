@@ -8,6 +8,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <my-lendings :lendings="lendings" v-if="lendings.length > 0"></my-lendings>
+                <p v-else-if="loading">Loading...</p>
                 <p v-else>You have no current lendings.</p>
             </div>
         </div>
@@ -28,7 +29,8 @@
         ],
         data() {
             return {
-                lendings: []
+                lendings: [],
+                loading: true
             }
         },
         created() {
@@ -36,14 +38,15 @@
         },
         methods: {
             fetchLendings() {
-                this.lendings = [
-                    {
-                        'item' : {
-                            'name': "Great Item"
-                        },
-                        'created_at': '2017-07-01 12:00'
-                    }
-                ];
+                axios.get('/api/lendings')
+                    .then(function(response) {
+                        this.lendings = response.data;
+                        this.loading = false;
+                    }.bind(this))
+                    .catch(function (error) {
+                        this.loading=false;
+                        console.log(error);
+                    });
             }
         }
     }

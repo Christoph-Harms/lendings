@@ -2,6 +2,6 @@
 
 @section('content')
 
-    <dashboard :user='{!! json_encode(Auth::user()) !!}'></dashboard>
+    <dashboard :user='{!! json_encode($user) !!}'></dashboard>
 
 @endsection
