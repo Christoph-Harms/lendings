@@ -30,7 +30,6 @@ class InteractWithItemsTest extends TestCase
     /** @test */
     public function a_guest_can_not_see_items()
     {
-        $this->withoutExceptionHandling();
         factory(Item::class, 3)->create();
 
         $response = $this->json('GET', route('items.api_index'));
