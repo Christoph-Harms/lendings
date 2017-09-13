@@ -67,6 +67,7 @@ class InteractWithItemsTest extends TestCase
     /** @test */
     public function an_admin_can_create_items()
     {
+        $this->withoutExceptionHandling();
         $admin = factory(User::class)->states('admin')->create();
         $item = factory(Item::class)->make();
         Passport::actingAs($admin);

@@ -15,7 +15,7 @@
         "fzaninotto/faker": "~1.4",
         "martinlindhe/laravel-vue-i18n-generator": "^0.1.18",
         "mockery/mockery": "0.9.*",
-        "phpunit/php-code-coverage": "^4.0.4",
+        "phpunit/php-code-coverage": "^5.2.2",
         "phpunit/phpunit": "~6.0",
         "filp/whoops": "~2.0"
     },
@@ -43,12 +43,12 @@
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize",
-            "php artisan i18n:generate"
+            "php artisan vue-i18n:generate"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize",
-            "php artisan i18n:generate"
+            "php artisan vue-i18n:generate"
         ]
     },
     "config": {

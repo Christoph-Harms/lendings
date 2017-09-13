@@ -37,12 +37,13 @@ class ItemsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Database\Eloquent\Model|Item
      */
     public function store(Request $request)
     {
         $this->authorize('create', Item::class);
-        return Item::create($request->intersect(['name', 'quantity', 'qty_available', 'description', 'img_url']));
+        return Item::create(array_filter($request->only(['name', 'quantity', 'qty_available', 'description', 'img_url'])));
     }
 
     /**
