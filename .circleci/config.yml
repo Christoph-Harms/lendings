@@ -32,6 +32,8 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
+      - run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
       - run: php artisan key:generate
 
       # run tests!
